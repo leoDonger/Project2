@@ -52,11 +52,6 @@ void setup() {
     nodes[i] = new Node(new Vec2(base_pos.x + i * link_length, base_pos.y));
   }
 
-  // for (int i = 0; i < 5; i++) {
-  //   for (int j = 0; j < 5; j++) {
-  //     nodes_mesh[i][j] = new Node(new Vec2(base_pos.x + i * link_length, base_pos.y));
-  //   }
-  // }
 }
 
 
@@ -97,15 +92,6 @@ float total_length_error(){
     actual_length += (nodes[i].pos.minus(nodes[i-1].pos)).length();
   }
 
-  // for (int i = 0; i < nodes_mesh.length; i++) {
-  //   for (int j = 1; j < nodes_mesh[0].length; j++) {
-  //     actual_length += (nodes_mesh[i][j].pos.minus(nodes_mesh[i][j-1].pos)).length();
-  //   }
-  // }
-  // for (int i = 1; i < nodes_mesh.length; i++) {
-  //   actual_length += (nodes_mesh[i][0].pos.minus(nodes_mesh[i-1][0].pos)).length();
-  // }
-
   return ideal_length - actual_length;
 }
 
@@ -118,15 +104,6 @@ float total_energy(){
     float height_base = (height - nodes[j].pos.y * scene_scale) / scene_scale;
     potential_energy += gravity.length() * height_base;
   }
-
-  // for (int i = 0; i < nodes_mesh.length; i++) {
-  //   for (int j = 0; j < nodes_mesh[0].length; j++) {
-  //     kinetic_energy += 0.5 * nodes_mesh[i][j].vel.lengthSqr();
-
-  //     float height_base = (height - nodes_mesh[i][j].pos.y * scene_scale) / scene_scale;
-  //     potential_energy += gravity.length() * height_base;
-  //   }
-  // }
 
   float total_energy = kinetic_energy + potential_energy;
   // println("t:", time, " energy:", total_energy);
@@ -141,15 +118,6 @@ void update_physics(float dt) {
     nodes[i].pos = nodes[i].pos.plus(nodes[i].vel.times(dt));
   }
 
-  // for (int i = 0; i < nodes_mesh.length; i++) {
-  //   for (int j = 0; j < nodes_mesh[0].length; j++) {
-  //     nodes_mesh[i][j].last_pos = nodes_mesh[i][j].pos;
-  //     nodes_mesh[i][j].vel = nodes_mesh[i][j].vel.plus(gravity.times(dt));
-  //     nodes_mesh[i][j].pos = nodes_mesh[i][j].pos.plus(nodes_mesh[i][j].vel.times(dt));
-  //   }
-  // }
-  
-
   // Constrain the distance between nodes to the link length
   for (int k = 0; k < relaxation_steps; k++) {
     for (int j = 1; j < nodes.length; j++) {
@@ -161,17 +129,6 @@ void update_physics(float dt) {
       nodes[j-1].pos = nodes[j-1].pos.plus(delta_normalized.times(correction / 2));
     }
     nodes[0].pos = base_pos;
-    // for (int i = 0; i < nodes_mesh.length; i++) {
-    //   for (int j = 1; j < nodes_mesh[0].length; j++) {
-    //     Vec2 delta = nodes_mesh[i][j].pos.minus(nodes_mesh[i][j-1].pos);
-    //     float delta_len = delta.length();
-    //     float correction = delta_len - link_length;
-    //     Vec2 delta_normalized = delta.normalized();
-    //     nodes_mesh[i][j].pos = nodes_mesh[i][j].pos.minus(delta_normalized.times(correction / 2));
-    //     nodes_mesh[i][j-1].pos = nodes_mesh[i][j-1].pos.plus(delta_normalized.times(correction / 2));
-    //   }
-      // nodes_mesh[i][0].pos = base_poses[i];
-    // }
 
   }
 
@@ -179,13 +136,6 @@ void update_physics(float dt) {
     nodes[j].vel = nodes[j].pos.minus(nodes[j].last_pos).times(1 / dt);
   }
 
-  // for (int i = 0; i < nodes_mesh.length; i++) {
-  //   for (int j = 0; j < nodes_mesh[0].length; j++) {
-  //     nodes_mesh[i][j].vel = nodes_mesh[i][j].pos.minus(nodes_mesh[i][j].last_pos).times(1 / dt);
-  //   }
-  // }
-
-  // println("total length error: ", total_length_error()total_length_error());
 }
 
 boolean paused = false;
@@ -197,12 +147,16 @@ void draw() {
   if (!paused) {
     for (int i = 0; i < sub_steps; i++) {
       time += dt / sub_steps;
-      if (second () != previous_second && time < 30){
+      int second = second();
+      if (second != previous_second && total_second <= 30){
         TableRow newRow = table.addRow();
-        newRow.setFloat("Time", time);
-        newRow.setFloat("ERROR", total_length_error());
-        // writer.println("Second")
-      }else{
+        previous_second = second;
+        newRow.setFloat("Time", total_second);
+        total_second++;
+        newRow.setFloat("Energy", total_energy());
+        // newRow.setFloat("ERROR", total_length_error());
+        println("Second:", total_second);
+      }else if (total_second > 30){
         println("press l");
       }
       update_physics(dt / sub_steps);
@@ -212,11 +166,6 @@ void draw() {
   // Compute the total energy (should be conserved)
   // total_energy();
 
-
-  // specular(120, 120, 180);  //Setup lights… 
-  // ambientLight(90,90,90);   //More light…
-  // lightSpecular(255,255,255); shininess(20);  //More light…
-  // directionalLight(200, 200, 200, -1, 1, -1); //More light…
   background(255);
   stroke(0);
   strokeWeight(2);
@@ -238,33 +187,6 @@ void draw() {
       popMatrix();
     }
   }
-  
-
-  // for (int i = 0; i < nodes_mesh.length; i++) {
-  //   for (int j = 0; j < nodes_mesh[0].length; j++) {
-  //     pushMatrix();
-  //     stroke(0);
-  //     strokeWeight(0.02 * scene_scale);
-  //     translate(nodes_mesh[i][j].pos.x * scene_scale, nodes_mesh[i][j].pos.y * scene_scale, -50 - (i * link_length * scene_scale));
-  //     sphere(0.07 * scene_scale);
-  //     popMatrix();
-
-  //     if (j < nodes_mesh[0].length-1){
-  //       pushMatrix();
-  //       line(nodes_mesh[i][j].pos.x * scene_scale, nodes_mesh[i][j].pos.y * scene_scale, -50 - (i * link_length * scene_scale), nodes_mesh[i][j+1].pos.x * scene_scale, nodes_mesh[i][j+1].pos.y * scene_scale, -50 - (i * link_length * scene_scale));
-  //       popMatrix();
-  //     }
-  //   }
-
-  //   if (i < nodes_mesh.length-1){
-  //     pushMatrix();
-  //     line(nodes_mesh[i][0].pos.x * scene_scale, nodes_mesh[i][0].pos.y * scene_scale, -50- (i * link_length * scene_scale), nodes_mesh[i+1][0].pos.x * scene_scale, nodes_mesh[i+1][0].pos.y * scene_scale, -50 - (i * link_length * scene_scale));
-  //     popMatrix();
-  //   }
-  // }
-
-
-
 
 
 
