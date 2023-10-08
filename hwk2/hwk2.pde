@@ -32,10 +32,9 @@ void setup() {
   size(500, 500, P3D);
   surface.setTitle("hwk2");
   table = new Table();
-  //table.setTitle("dataset 1 with subsets=", sub_steps);
   table.addColumn("Time");
+  // table.addColumn("Energy");
   table.addColumn("ERROR");
-  // writer = createWriter("dataset 1 with subsets=", sub_steps);
   scene_scale = width / 10.0f;
   camera = new Camera();
   camera.position = new PVector(361, 254, 321);
@@ -63,7 +62,7 @@ Vec2 gravity = new Vec2(0, 10);
 float scene_scale = width / 10.0f;
 
 // Physics Parameters
-int relaxation_steps = 1;
+int relaxation_steps = 10;
 int sub_steps = 100;
 
 void keyPressed()
@@ -72,7 +71,9 @@ void keyPressed()
     paused = !paused;
   }else if (key == 'l'){
     println("writing csv file");
-    String title = "datasetWithSubsets_" + sub_steps + "RelaSteps_" + relaxation_steps + "Error.csv";
+    saved = true;
+    String title = "ErrordatasetWithSubsets_" + sub_steps + "RelaSteps_" + relaxation_steps + ".csv";
+    // String title = "datasetWithRelaSteps_" + relaxation_steps + "Subsets_" + sub_steps + ".csv";
     // String title = "datasetWithSubsets_" + sub_steps + "RelaSteps_" + relaxation_steps + ".csv";
     saveTable(table, title);
   }
@@ -139,6 +140,7 @@ void update_physics(float dt) {
 }
 
 boolean paused = false;
+boolean saved = false;
 
 float time = 0;
 void draw() {
@@ -152,11 +154,11 @@ void draw() {
         TableRow newRow = table.addRow();
         previous_second = second;
         newRow.setFloat("Time", total_second);
+        // newRow.setFloat("Energy", total_energy());
+        newRow.setFloat("ERROR", total_length_error());
         total_second++;
-        newRow.setFloat("Energy", total_energy());
-        // newRow.setFloat("ERROR", total_length_error());
         println("Second:", total_second);
-      }else if (total_second > 30){
+      }else if (total_second > 30 && !saved){
         println("press l");
       }
       update_physics(dt / sub_steps);
