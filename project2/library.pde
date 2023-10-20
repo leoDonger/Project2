@@ -133,6 +133,31 @@ Vec3 perpendicular(Vec3 a) {
 }
 
 
+
+class IntTuple {
+  int x, y;
+
+  IntTuple(int x, int y) {
+    this.x = x;
+    this.y = y;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (!(o instanceof IntTuple)) return false;
+    IntTuple tuple = (IntTuple) o;
+    return x == tuple.x && y == tuple.y;
+  }
+
+  @Override
+  public int hashCode() {
+    int result = x;
+    result = 31 * result + y;
+    return result;
+  }
+}
+
 //boolean colliding(Circle c1, Circle c2){ // check
 //    float dist = (c2.center.minus(c1.center)).length();
 //    return dist <= (c1.radius + c2.radius);
@@ -210,12 +235,13 @@ void Update(float dt)
     theta = -118.64556;
     phi = -0.048;
     obstacle.pos = new Vec3(300.77/scene_scale, 340/scene_scale, -2555/scene_scale);
+    intTuples = new HashSet<IntTuple>();
 
     for (int i = 0; i < col_num; i++) {
       for (int j = 0; j < row_num; j++) {
         nodes_mesh[i][j] = new Node(new Vec3(base_pos.x + j * link_length, base_pos.y, base_pos.z - i * link_length));
         // nodes_mesh[i][j].radius = 0.05 * scene_scale;
-        nodes_mesh[i][j].radius = 0.05;
+        nodes_mesh[i][j].radius = 0.025;
       }
     }
    }
