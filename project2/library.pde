@@ -158,11 +158,6 @@ class IntTuple {
   }
 }
 
-//boolean colliding(Circle c1, Circle c2){ // check
-//    float dist = (c2.center.minus(c1.center)).length();
-//    return dist <= (c1.radius + c2.radius);
-//}
-
 
 
 // Camera
@@ -231,19 +226,20 @@ void Update(float dt)
     //  position = defaults.position;
     //  theta = defaults.theta;
     //  phi = defaults.phi;
-    position = new PVector(409.45, 300, -2378.703);
-    theta = -118.64556;
-    phi = -0.048;
+    position = new PVector(458.68, 295.03055, -2378.7615);
+    theta = -118.527;
+    phi = -0.16574;
     obstacle.pos = new Vec3(300.77/scene_scale, 340/scene_scale, -2555/scene_scale);
     intTuples = new HashSet<IntTuple>();
 
     for (int i = 0; i < col_num; i++) {
       for (int j = 0; j < row_num; j++) {
         nodes_mesh[i][j] = new Node(new Vec3(base_pos.x + j * link_length, base_pos.y, base_pos.z - i * link_length));
-        // nodes_mesh[i][j].radius = 0.05 * scene_scale;
         nodes_mesh[i][j].radius = 0.025;
       }
     }
+    air_v = new Vec3(0, 0, 0);
+    use_air_drag = false;
    }
     
    if ( keyCode == LEFT )  negativeTurn.x = 1;
