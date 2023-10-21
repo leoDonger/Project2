@@ -31,7 +31,7 @@ Welcome to the 3D Cloth Simulation project! This advanced simulation showcases a
 
 ### Camera Controls
 - **Movement:** Use **‘q’**, **‘w’**, **‘e’**, **‘a’**, **‘s’**, **‘d’** to navigate the camera location.
-- **Elevation:** Hold **‘shift’** while using movement keys to raise or lower the camera’s position.
+- **Speed Up:** Hold **‘shift’** to boost the move speed while using movement keys to raise or lower the camera's position.
 - **Angle:** Use the arrow keys **‘up’**, **‘down’**, **‘left’**, **‘right’** to adjust the camera angle.
 
 ### Air Drag Controls

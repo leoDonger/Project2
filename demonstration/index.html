@@ -2,52 +2,66 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8">
-    <title>Project 1: Pinball game</title>
+    <title>Project 2: Physics Simulation</title>
   </head>
   <body>
-    <h1>Leo Dong's Pinball game demonstration</h1>
-    <h2>Actual game starts at 1:15</h2>
-    <iframe width="560" height="315" src="https://www.youtube.com/embed/gDNLZn-NLTQ?si=kv8fNhFbP1FKIDK4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+    <h1>Leo Dong's 3D Cloth  demonstration</h1>
+    <h2>Actual game starts at 0:27</h2>
+    <iframe width="560" height="315" src="https://www.youtube.com/embed/l60NXuZq4rU?si=dfdNaDhw6u-dNVvo" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
     <div class="description">
         <nav>
-            <a href="https://github.com/leoDonger/Project2">Source code</a>
+            <a href="https://github.com/leoDonger/Project2/tree/master/project2">Source code</a>
         </nav>
-        <h2>Write up</h2>
+        <h2 style="color: brown; font-size: large;">Write up</h2>
         <p>
-            The score is displayed on the bottom left. 
-            A pinball earns 50 points when it bounces on a non-center circular obstacle and 100 points for the center circular obstacle.  
-        </p>
-        <p>
-            <strong>Game setting:</strong> Collision sound effects when scoring. Pinballs bounce off each other. Default starting with 3 pinballs. A particle system display appears when a pinball is near a flipper. 
-        </p>
-        <p>Press "space" to start or pause the game 
-            and "r" to reset the game.
+            Welcome to the 3D Cloth Simulation project! This advanced simulation showcases a realistic cloth model in a 3D environment, 
+            offering high-quality rendering, user interaction features, 
+            and various effects to enhance the realism and visual aesthetics.
         </p>
         <p>
-            <strong>Difficulties I encountered:</strong> not being able to create a rotated rectangle with processing with my Box class; collision equations in general; and obstacle texturing is hard in processing  
+          I encountered several <strong>difficulties</strong>, including fine-tuning my 
+          simulation parameters to attain natural-looking swinging behavior. 
+          This task demanded stiffness and energy loss within the system, 
+          contrasting with Hwk2. Another challenge was implementing air drag with Position Based Dynamics, 
+          requiring the separation of physics updates from constraints updates. Finally, both rendering 
+          the 3D image and managing the logic of ripping nodes in a cloth were time-consuming. 
         </p>
+        <nav>
+            <h3 style="color: brown; font-size: large;">Camera Controls</h3>
+            <strong>- Movement:</strong> Use 'q', 'w', 'e', 'a', 's', 'd' to navigate the camera location.  <br>
+            <strong>- Speed up:</strong> Hold 'shift' to boost the move speed while using movement keys to raise or lower the camera's position.   <br>
+            <strong>- Angle:</strong> Use the arrow keys 'up', 'down', 'left', 'right' to adjust the camera orientation.  <br>
+            <br>
+            <h3 style="color: brown; font-size: large;">Air Drag Controls</h3>
+            <strong>- Toggle Air Drag:</strong> Press 'n' to activate or deactivate air drag effects.   <br>
+            <strong>- Adjust Air Flow:</strong> Use '&lt;' to decrease and '>' to increase horizontal air flow. <br>
+            <br>
+            <h3 style="color: brown; font-size: large;">Simulation Controls</h3>
+            <strong>- Pause/Resume:</strong> Press 'Space' to toggle between pausing and resuming the simulation.   <br>
+            <strong>- Reset:</strong> Hit 'r' to reset the simulation to its initial state. <br>
+            <strong>- Camera Info:</strong> Press 'p' to print out the current camera location information. <br>
+        </nav>
+
       </div>
 
     <ol><span style="color: brown; font-size: large;">Features with timestamp:</span>
-      <li>circular obstacles (0:0) </li>
-      <li>launcher (0:0)</li>
-      <li>textured background (0:0)</li> 
-      <li>textured obstacles (0:0)</li>
-      <li>score display (0:0)</li> 
-      <li>basic pinball Dynamics (1:20)</li>
-      <li>multiple balls interaction (1:16)</li> 
-      <li>circular obstacles (1:20)</li>
-      <li>polygonal obstacles (1:20)</li>
-      <li>Sound effects (1:20)</li>
-      <li>particle system effects (1:21)</li>
+      <li>High-Quality Rendering (0:0)</li>
+      <li>3D Cloth Simulation (0:27) </li>
+      <li>User Interaction (0:33)</li>
+      <li>Self-Collision Detection (0:36)</li> 
+      <li>Ripping Effects (0:42)</li>
+      <li>Air Drag (1:10)</li>
+      <li>Without Air Drag (1:23)</li>
+      <li>Varying Amounts of mind (1:49)</li> 
+      <li>Realistic Speed (2:01)</li> 
     </ol>
     <ul><span style="color: brown; font-size: large;">List of library:</span>
-        <li>ddf.minim for audio play </li>
-        <li>java.util.Iterator for using arraylist to create particle system</li>
+        <li>java.util.HashSet for using set data structure in processing</li>
+        <li>The camera library created by Liam Tyler</li>
     </ul>
     <div>
         <h2>Image of my simulation and submission for the art contest</h2>
-        <img src="https://github.com/leoDonger/Pinball-Game-Demonstration/blob/main/imageForContest.png?raw=true" alt="Pinball-Game image" width="500" height="600">
+        <img src="https://github.com/leoDonger/Pinball-Game-Demonstration/blob/main/imageForContest.png?raw=true" alt="Cloth simulation" width="500" height="600">
     </div>
   </body>
 </html>
